@@ -40,6 +40,12 @@ nest generate service some-module-name
 nest generate controller some-module-name
 ```
 
+### How to submit your work
+
+1. Fork this repo to your own GitHub account.
+2. Make your changes there.
+3. Open a Pull Request against this repo.
+
 ### What you need to do
 
 1. Complete the books module (CRUD operations).
