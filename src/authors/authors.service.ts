@@ -1,23 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Author } from './authors.types';
 
 @Injectable()
 export class AuthorsService {
-  private authors = [
-    {
-      id: 1,
-      name: 'Jane Austen',
-      email: 'jane.austen@example.com',
-    },
-    {
-      id: 2,
-      name: 'Charles Dickens',
-      email: 'charles.dickens@example.com',
-    },
-    {
-      id: 3,
-      name: 'Mark Twain',
-      email: 'mark.twain@example.com',
-    },
+  private authors: Author[] = [
+    new Author(1, 'Jane Austen'),
+    new Author(2, 'Charles Dickens'),
+    new Author(3, 'Mark Twain'),
   ];
 
   findAll() {
@@ -33,10 +22,10 @@ export class AuthorsService {
   }
 
   create(author: { name: string; email: string }) {
-    const newAuthor = {
-      id: this.authors[this.authors.length - 1].id + 1,
-      ...author,
-    };
+    const newAuthor = new Author(
+      this.authors[this.authors.length - 1].id + 1,
+      author.name,
+    );
     this.authors.push(newAuthor);
     return newAuthor;
   }

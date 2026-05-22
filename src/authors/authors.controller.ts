@@ -4,11 +4,14 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthorsService } from './authors.service';
 
+@ApiTags('authors')
 @Controller('authors')
 export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
@@ -19,8 +22,8 @@ export class AuthorsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authorsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.authorsService.findOne(id);
   }
 
   @Post()
@@ -30,14 +33,14 @@ export class AuthorsController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() authorUpdate: { name?: string; email?: string },
   ) {
-    return this.authorsService.update(+id, authorUpdate);
+    return this.authorsService.update(id, authorUpdate);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.authorsService.delete(+id);
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.authorsService.delete(id);
   }
 }
